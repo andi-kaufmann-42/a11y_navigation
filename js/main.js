@@ -1,7 +1,7 @@
 //based on https://www.w3.org/WAI/tutorials/menus/application-menus-code/#nav
 
-let appsMenuItems = document.querySelectorAll('#appmenu > li');
-let subMenuItems = document.querySelectorAll('#appmenu > li li');
+let appsMenuItems = document.querySelectorAll('.navigation > li');
+let subMenuItems = document.querySelectorAll('.navigation > li li');
 
 let keys = {
 	tab:    9,
@@ -156,12 +156,14 @@ Array.prototype.forEach.call(subMenuItems, function(el, i){
 			}
 			return false;
 	});
+    /*
     el.addEventListener("click", function(event) {
         alert(this.innerHTML);
         event.preventDefault();
         event.stopPropagation();
         return false;
     });
+    */
 
 });
 
