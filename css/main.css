@@ -1,49 +1,52 @@
-.navigation {
-	float: left;
-	margin: 0;
-	padding: 0;
-	color: #fff;
-	background-color: #369;
-	padding: .25em;
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
-.navigation li {
-	white-space: nowrap;
-	display:block;
-	padding: .25em .75em;
-	border: 1px solid #fff;
-}
-.navigation > li {
-	float: left;
-	background-color: #036;
-	text-align: center;
-	position:relative;
-	cursor: pointer;
-}
-.navigation :hover,
-.navigation :focus {
-	background-color: #fff;
-	color: #036;
-	border: 1px solid #036;
-	text-decoration: underline;
+nav {
+    max-width: 50%;
 }
 
-.navigation :hover li,
-.navigation :focus li {
-	color: #fff;
-	background-color: #036;
+.navigation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: left;
+    color: #fff;
+    list-style-type: none; 
+}
+
+.navigation li {
+    font-size: 22px;
+    padding: 5px;
+    background: blue;
+    flex-grow: 1;
+}
+.navigation > li {
+	position: relative;
+}
+
+.navigation li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navigation li:hover,
+.navigation li:focus {
+    outline: 1px solid orange;
+    background-color: grey;
+    color: #000;
 }
 
 .navigation > li > ul {
 	display: none;
-	position:absolute;
+	list-style-type: none; 
+    position: absolute;
 	left:0;
 	right:0;
-	top:100%;
 	padding:0;
 	margin:0;
-	background-color: #036;
-	width: 300%;
-	text-align: left;
 }
 
 .navigation > li:hover > ul {

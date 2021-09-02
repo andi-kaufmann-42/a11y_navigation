@@ -156,14 +156,6 @@ Array.prototype.forEach.call(subMenuItems, function(el, i){
 			}
 			return false;
 	});
-    /*
-    el.addEventListener("click", function(event) {
-        alert(this.innerHTML);
-        event.preventDefault();
-        event.stopPropagation();
-        return false;
-    });
-    */
 
 });
 
