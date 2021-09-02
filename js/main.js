@@ -82,6 +82,7 @@ Array.prototype.forEach.call(menuItems, function(el, i){
 					break;
                 case keys.enter:
                 case keys.down:
+                case keys.space:
                     this.click();
                     subindex = 0;
                     gotoSubIndex(this.querySelector('ul'), 0);
@@ -124,11 +125,6 @@ Array.prototype.forEach.call(subMenuItems, function(el, i){
 					}
 					prevdef = true;
 					break;
-                case keys.enter:
-                case keys.space:
-                    alert(this.innerText);
-                    prevdef = true;
-                    break;
                 case keys.esc:
                     gotoIndex(currentIndex);
                     prevdef = true;
