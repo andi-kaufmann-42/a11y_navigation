@@ -1,6 +1,6 @@
 //based on https://www.w3.org/WAI/tutorials/menus/application-menus-code/#nav
 
-let appsMenuItems = document.querySelectorAll('.navigation > li');
+let menuItems = document.querySelectorAll('.navigation > li');
 let subMenuItems = document.querySelectorAll('.navigation > li li');
 
 let keys = {
@@ -19,13 +19,13 @@ let subIndex;
 
 //top level menu
 let gotoIndex = function(idx) {
-    //am ende der liste setze den index wieder auf 0
-    if (idx === appsMenuItems.length) {
+    //at the end of the list set index to 0
+    if (idx === menuItems.length) {
 		idx = 0;
 	} else if (idx < 0) {
-		idx = appsMenuItems.length - 1;
+		idx = menuItems.length - 1;
 	}
-	appsMenuItems[idx].focus();
+	menuItems[idx].focus();
 	currentIndex = idx;
     console.log("currentIndex: " + currentIndex);
 };
@@ -45,7 +45,7 @@ let gotoSubIndex = function (menu, idx) {
 }
 
 //top level menu
-Array.prototype.forEach.call(appsMenuItems, function(el, i){
+Array.prototype.forEach.call(menuItems, function(el, i){
 		if (0 == i) {
 			el.setAttribute('tabindex', '0');
 			el.addEventListener("focus", function() {
@@ -56,7 +56,7 @@ Array.prototype.forEach.call(appsMenuItems, function(el, i){
 		}
 		el.addEventListener("focus", function() {
 			subIndex = 0;
-			Array.prototype.forEach.call(appsMenuItems, function(el, i){
+			Array.prototype.forEach.call(menuItems, function(el, i){
 				el.setAttribute('aria-expanded', "false");
 			});
 		});
@@ -72,14 +72,6 @@ Array.prototype.forEach.call(appsMenuItems, function(el, i){
 		el.addEventListener("keydown", function(event) {
 			var prevdef = false;
 			switch (event.keyCode) {
-				case keys.right:
-					gotoIndex(currentIndex + 1);
-					prevdef = true;
-					break;
-				case keys.left:
-					gotoIndex(currentIndex - 1);
-					prevdef = true;
-					break;
 				case keys.tab:
 					if (event.shiftKey) {
 						gotoIndex(currentIndex - 1);
@@ -88,22 +80,30 @@ Array.prototype.forEach.call(appsMenuItems, function(el, i){
 					}
 					prevdef = true;
 					break;
-				case keys.enter:
-				case keys.down:
-					this.click();
-					subindex = 0;
-					gotoSubIndex(this.querySelector('ul'), 0);
+                case keys.enter:
+                case keys.down:
+                    this.click();
+                    subindex = 0;
+                    gotoSubIndex(this.querySelector('ul'), 0);
+                    prevdef = true;
+                    break;
+                case keys.esc:
+                    prevdef = true;
+                case keys.left:
+                    gotoIndex(currentIndex - 1);
+                    prevdef = true;
+                    break;
+                case keys.up:
+                    this.click();
+                    var submenu = this.querySelector('ul');
+                    subindex = submenu.querySelectorAll('li').length - 1;
+                    gotoSubIndex(submenu, subindex);
+                    prevdef = true;
+                    break;
+                case keys.right:
+					gotoIndex(currentIndex + 1);
 					prevdef = true;
 					break;
-				case keys.up:
-					this.click();
-					var submenu = this.querySelector('ul');
-					subindex = submenu.querySelectorAll('li').length - 1;
-					gotoSubIndex(submenu, subindex);
-					prevdef = true;
-					break;
-				case keys.esc:
-					prevdef = true;
 			}
 			if (prevdef) {
 				event.preventDefault();
@@ -124,29 +124,29 @@ Array.prototype.forEach.call(subMenuItems, function(el, i){
 					}
 					prevdef = true;
 					break;
+                case keys.enter:
+                case keys.space:
+                    alert(this.innerText);
+                    prevdef = true;
+                    break;
+                case keys.esc:
+                    gotoIndex(currentIndex);
+                    prevdef = true;
+                    break;
+                case keys.left:
+                    gotoIndex(currentIndex - 1);
+                    prevdef = true;
+                    break;
+                case keys.up:
+					gotoSubIndex(this.parentNode, subIndex - 1);
+					prevdef = true;
+					break;
 				case keys.right:
 					gotoIndex(currentIndex + 1);
 					prevdef = true;
 					break;
-				case keys.left:
-					gotoIndex(currentIndex - 1);
-					prevdef = true;
-					break;
-				case keys.esc:
-					gotoIndex(currentIndex);
-					prevdef = true;
-					break;
 				case keys.down:
 					gotoSubIndex(this.parentNode, subIndex + 1);
-					prevdef = true;
-					break;
-				case keys.up:
-					gotoSubIndex(this.parentNode, subIndex - 1);
-					prevdef = true;
-					break;
-				case keys.enter:
-				case keys.space:
-					alert(this.innerText);
 					prevdef = true;
 					break;
 			}
@@ -156,6 +156,5 @@ Array.prototype.forEach.call(subMenuItems, function(el, i){
 			}
 			return false;
 	});
-
 });
 
