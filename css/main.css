@@ -26,6 +26,10 @@ nav {
 	position: relative;
 }
 
+.navigation > li > li {
+	position: relative;
+}
+
 .navigation li a {
     display: block;
     text-decoration: none;
@@ -49,7 +53,21 @@ nav {
 	margin:0;
 }
 
+.navigation > li > ul > li > ul {
+	display: none;
+	list-style-type: none; 
+    position: absolute;
+	right:-46px;
+    top:1px;
+	padding:0;
+	margin:0;
+}
+
 .navigation > li:hover > ul {
+    display: block !important;
+}
+
+.navigation > li > ul > li:hover > ul {
     display: block !important;
 }
 

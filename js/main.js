@@ -1,7 +1,8 @@
 //based on https://www.w3.org/WAI/tutorials/menus/application-menus-code/#nav
 
 let menuItems = document.querySelectorAll('.navigation > li');
-let subMenuItems = document.querySelectorAll('.navigation > li li');
+let subMenuItems1 = document.querySelectorAll('.navigation > li li');
+let subMenuItems2 = document.querySelectorAll('.navigation > li li li');
 
 let keys = {
 	tab:    9,
@@ -30,10 +31,24 @@ let gotoIndex = function(idx) {
     console.log("currentIndex: " + currentIndex);
 };
 
-//sub level menu
+// 1. sub level menu
 let gotoSubIndex = function (menu, idx) {
     //we should check here if there is a subMenu. logs errors when no subMenu is present
-    var items = menu.querySelectorAll('li');
+    let items = menu.querySelectorAll('li');
+    if (idx == items.length) {
+		idx = 0;
+	} else if (idx < 0) {
+		idx = items.length - 1;
+	}
+	items[idx].focus();
+	subIndex = idx;
+    console.log("subIndex: " + subIndex);
+}
+
+// 2. sub level menu
+let gotoSubIndex = function (menu, idx) {
+    //we should check here if there is a subMenu. logs errors when no subMenu is present
+    let items = menu2.querySelectorAll('li');
     if (idx == items.length) {
 		idx = 0;
 	} else if (idx < 0) {
@@ -112,8 +127,8 @@ Array.prototype.forEach.call(menuItems, function(el, i){
 		});
 });
 
-// sub level menu
-Array.prototype.forEach.call(subMenuItems, function(el, i){
+// 1. sub level menu 
+Array.prototype.forEach.call(subMenuItems1, function(el, i){
 	el.setAttribute('tabindex', '-1');
 	el.addEventListener("keydown", function(event) {
 			switch (event.keyCode) {
@@ -148,9 +163,52 @@ Array.prototype.forEach.call(subMenuItems, function(el, i){
 			}
 			if (prevdef) {
 				event.preventDefault();
+				//don't let the click "bubble up"
 				event.stopPropagation();
 			}
 			return false;
 	});
 });
 
+// 2. sub level menu 
+Array.prototype.forEach.call(subMenuItems2, function(el, i){
+	el.setAttribute('tabindex', '-1');
+	el.addEventListener("keydown", function(event) {
+			switch (event.keyCode) {
+				case keys.tab:
+                    if (event.shiftKey) {
+						gotoSubIndex(this.parentNode, subIndex - 1);
+					} else {
+						gotoSubIndex(this.parentNode, subIndex + 1);
+					}
+					prevdef = true;
+					break;
+                case keys.esc:
+                    gotoIndex(currentIndex);
+                    prevdef = true;
+                    break;
+                case keys.left:
+                    gotoIndex(currentIndex - 1);
+                    prevdef = true;
+                    break;
+                case keys.up:
+					gotoSubIndex(this.parentNode, subIndex - 1);
+					prevdef = true;
+					break;
+				case keys.right:
+					gotoIndex(currentIndex + 1);
+					prevdef = true;
+					break;
+				case keys.down:
+					gotoSubIndex(this.parentNode, subIndex + 1);
+					prevdef = true;
+					break;
+			}
+			if (prevdef) {
+				event.preventDefault();
+				//don't let the click "bubble up"
+				event.stopPropagation();
+			}
+			return false;
+	});
+});
