@@ -1,76 +1,55 @@
-* {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+#appmenu {
+	float: left;
+	margin: 0;
+	padding: 0;
+	color: #fff;
+	background-color: #369;
+	padding: .25em;
 }
-nav {
-    max-width: 50%;
+#appmenu li {
+	white-space: nowrap;
+	display:block;
+	padding: .25em .75em;
+	border: 1px solid #fff;
 }
-
-.navigation {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: left;
-    color: #fff;
-    list-style-type: none; 
+#appmenu > li {
+	float: left;
+	background-color: #036;
+	text-align: center;
+	position:relative;
+	cursor: pointer;
 }
-
-.navigation li {
-    font-size: 22px;
-    padding: 5px;
-    background: blue;
-    flex-grow: 1;
-}
-.navigation > li {
-	position: relative;
-}
-
-.navigation > li > li {
-	position: relative;
+#appmenu :hover,
+#appmenu :focus {
+	background-color: #fff;
+	color: #036;
+	border: 1px solid #036;
+	text-decoration: underline;
 }
 
-.navigation li a {
-    display: block;
-    text-decoration: none;
-    color: #fff;
+#appmenu :hover li,
+#appmenu :focus li {
+	color: #fff;
+	background-color: #036;
 }
 
-.navigation li:hover,
-.navigation li:focus {
-    outline: 1px solid orange;
-    background-color: grey;
-    color: #000;
-}
-
-.navigation > li > ul {
+#appmenu > li > ul {
 	display: none;
-	list-style-type: none; 
-    position: absolute;
+	position:absolute;
 	left:0;
 	right:0;
+	top:100%;
 	padding:0;
 	margin:0;
+	background-color: #036;
+	width: 200%;
+	text-align: left;
 }
 
-.navigation > li > ul > li > ul {
-	display: none;
-	list-style-type: none; 
-    position: absolute;
-	right:-46px;
-    top:1px;
-	padding:0;
-	margin:0;
-}
-
-.navigation > li:hover > ul {
+#appmenu > li:hover > ul {
     display: block !important;
 }
 
-.navigation > li > ul > li:hover > ul {
-    display: block !important;
-}
-
-.navigation > li[aria-expanded="true"] > ul {
+#appmenu > li[aria-expanded="true"] > ul {
 	display:block;
 }
